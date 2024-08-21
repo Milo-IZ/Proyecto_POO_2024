@@ -6,9 +6,9 @@ class Usuario(models.Model):
     class Meta:
         pass
 
-    String correo_usurio = None
-    String Contraseña = None
-    String rol = None
+    str correo_usurio = None
+    str Contraseña = None
+    str rol = None
 
 
     def registrar(self, ):

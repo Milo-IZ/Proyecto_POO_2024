@@ -9,7 +9,7 @@ class Denuncia(models.Model):
     int contador = None
     Contenido contenido = None
     Usuario usuario = None
-    String motivo = None
+    str motivo = None
 
 
     def registrar_denuncia(self, ):

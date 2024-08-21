@@ -6,16 +6,16 @@ class Contenido(models.Model):
     class Meta:
         pass
 
-    String titulo = None
-    String correo_usurio = None
-    String contraseña = None
+    str titulo = None
+    str correo_usurio = None
+    str contraseña = None
     Usuario autor = None
-    String descripcion = None
+    str descripcion = None
     Materia materia = None
     int año = None
     Date fecha_publicacion = None
-    String contenido = None
-    String fuentes = None
+    str contenido = None
+    str fuentes = None
 
 
     def votar(self, ):
