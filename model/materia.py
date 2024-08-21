@@ -8,7 +8,7 @@ class Materia(models.Model):
 
     int id = None
     int año = None
-    str nombre = None
+    String nombre = None
 
 
     def agregar_contenido(self, Contenido contenido):

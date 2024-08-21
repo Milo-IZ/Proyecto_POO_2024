@@ -6,15 +6,15 @@ class Usuario(models.Model):
     class Meta:
         pass
 
-    str correo_usurio = None
-    str Contraseña = None
-    str rol = None
+    String correo_usurio = None
+    String Contraseña = None
+    String rol = None
 
 
     def registrar(self, ):
         pass
 
-    def iniciar_sesion(self, ):
+    def iniciar sesion(self, ):
         pass
 
     def is_admin(self, ):

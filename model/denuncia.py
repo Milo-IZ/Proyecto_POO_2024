@@ -6,10 +6,10 @@ class Denuncia(models.Model):
     class Meta:
         pass
 
-    int contador = 0
+    int contador = None
     Contenido contenido = None
-    Usuario_usuario = None
-    String_motivo = None
+    Usuario usuario = None
+    String motivo = None
 
 
     def registrar_denuncia(self, ):

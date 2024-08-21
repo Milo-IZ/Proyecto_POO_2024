@@ -7,7 +7,7 @@ class Votar(models.Model):
         pass
 
     int contador = None
-    Contenido contenido = None
+    Cintenudo contenido = None
     Usuario usuario = None
     bool valido = None
 
