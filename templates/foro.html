@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Investigación</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Fondo con un color suave */
+        body {
+            background-color: #f7f9fc;
+        }
+
+        /* Sombra suave para las tarjetas de investigaciones */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Navbar con sombra */
+        .navbar {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Foro de Investigación</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Mis Investigaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="#" data-toggle="modal" data-target="#addResearchModal">Agregar Investigación</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container mt-5">
+        <h2 class="mb-4">Investigaciones Recientes</h2>
+        <div class="row">
+            <!-- Tarjeta de Investigación -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título de la Investigación 1</h5>
+                        <p class="card-text">Un resumen breve de la investigación para captar la atención...</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#researchModal1">Leer Más</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Investigación -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título de la Investigación 2</h5>
+                        <p class="card-text">Un resumen breve de la investigación para captar la atención...</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#researchModal2">Leer Más</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Investigación -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título de la Investigación 3</h5>
+                        <p class="card-text">Un resumen breve de la investigación para captar la atención...</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#researchModal3">Leer Más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para agregar investigación -->
+<div class="modal fade" id="addResearchModal" tabindex="-1" aria-labelledby="addResearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addResearchModalLabel">Agregar Nueva Investigación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="researchTitle">Título</label>
+                        <input type="text" class="form-control" id="researchTitle" placeholder="Ingrese el título de la investigación">
+                    </div>
+                    <div class="form-group">
+                        <label for="researchSummary">Resumen</label>
+                        <textarea class="form-control" id="researchSummary" rows="3" placeholder="Ingrese un resumen breve"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="researchContent">Contenido</label>
+                        <textarea class="form-control" id="researchContent" rows="5" placeholder="Ingrese el contenido completo de la investigación"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="researchSubject">Materia</label>
+                        <select class="form-control" id="researchSubject">
+                            <option>Programacion 2</option>
+                            <option>Alagoritmos y Esctructura de datos</option>
+                            <option>Programacion Orientada a Objetos</option>
+                            <option>Lenguages de Programacion</option>
+                            <option>Sistemas Operativos 1</option>
+                            <option>Electronica</option>
+                            <option>Sistemas Opetativos 2</option>
+                            <option>Base de Datos 1</option>
+                            <option>Base de Datos 2</option>
+                            <option>Circuitos Electricos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="researchYear">Año</label>
+                        <select class="form-control" id="researchYear">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="researchDate">Fecha</label>
+                        <input type="date" class="form-control" id="researchDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="researchAuthor">Autor</label>
+                        <input type="text" class="form-control" id="researchAuthor" placeholder="Nombre del autor">
+                    </div>
+                    <div class="form-group">
+                        <label for="researchImageUrl">URL de la imagen</label>
+                        <input type="url" class="form-control" id="researchImageUrl" placeholder="Ingrese la URL de la imagen">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal de investigación 1 -->
+    <div class="modal fade" id="researchModal1" tabindex="-1" aria-labelledby="researchModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="researchModalLabel1">Título de la Investigación 1</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Aquí puedes escribir todo el contenido detallado de la investigación 1...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
