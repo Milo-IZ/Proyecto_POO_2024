@@ -155,21 +155,165 @@
 </div>
 
     <!-- Modal de investigación 1 -->
-    <div class="modal fade" id="researchModal1" tabindex="-1" aria-labelledby="researchModalLabel1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="researchModalLabel1">Título de la Investigación 1</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <!-- Modal de investigación 1 -->
+<div class="modal fade" id="researchModal1" tabindex="-1" aria-labelledby="researchModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="researchModalLabel1">Título de la Investigación 1</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Aquí puedes escribir todo el contenido detallado de la investigación 1...</p>
+                <!-- Botones de denunciar y votar -->
+                <div class="d-flex justify-content-between mb-4">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#reportModal1">Denunciar</button>
+                    <button class="btn btn-success">Votar</button>
                 </div>
-                <div class="modal-body">
-                    <p>Aquí puedes escribir todo el contenido detallado de la investigación 1...</p>
+                <!-- Sección de comentarios -->
+                <div class="comments-section">
+                    <h5>Comentarios</h5>
+                    <div class="form-group">
+                        <textarea class="form-control" id="newComment1" rows="3" placeholder="Escribe tu comentario aquí..."></textarea>
+                    </div>
+                    <button class="btn btn-primary">Enviar</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal para registrar denuncia -->
+<div class="modal fade" id="reportModal1" tabindex="-1" aria-labelledby="reportModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel1">Registrar Denuncia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="reportReason1">Motivo de la denuncia</label>
+                        <textarea class="form-control" id="reportReason1" rows="3" placeholder="Describe el motivo de tu denuncia..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modales similares para las investigaciones 2 y 3 -->
+<!-- Modal de investigación 2 -->
+<div class="modal fade" id="researchModal2" tabindex="-1" aria-labelledby="researchModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="researchModalLabel2">Título de la Investigación 2</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Aquí puedes escribir todo el contenido detallado de la investigación 2...</p>
+                <!-- Botones de denunciar y votar -->
+                <div class="d-flex justify-content-between mb-4">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#reportModal2">Denunciar</button>
+                    <button class="btn btn-success">Votar</button>
+                </div>
+                <!-- Sección de comentarios -->
+                <div class="comments-section">
+                    <h5>Comentarios</h5>
+                    <div class="form-group">
+                        <textarea class="form-control" id="newComment2" rows="3" placeholder="Escribe tu comentario aquí..."></textarea>
+                    </div>
+                    <button class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para registrar denuncia -->
+<div class="modal fade" id="reportModal2" tabindex="-1" aria-labelledby="reportModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel2">Registrar Denuncia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="reportReason2">Motivo de la denuncia</label>
+                        <textarea class="form-control" id="reportReason2" rows="3" placeholder="Describe el motivo de tu denuncia..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de investigación 3 -->
+<div class="modal fade" id="researchModal3" tabindex="-1" aria-labelledby="researchModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="researchModalLabel3">Título de la Investigación 3</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Aquí puedes escribir todo el contenido detallado de la investigación 3...</p>
+                <!-- Botones de denunciar y votar -->
+                <div class="d-flex justify-content-between mb-4">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#reportModal3">Denunciar</button>
+                    <button class="btn btn-success">Votar</button>
+                </div>
+                <!-- Sección de comentarios -->
+                <div class="comments-section">
+                    <h5>Comentarios</h5>
+                    <div class="form-group">
+                        <textarea class="form-control" id="newComment3" rows="3" placeholder="Escribe tu comentario aquí..."></textarea>
+                    </div>
+                    <button class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para registrar denuncia -->
+<div class="modal fade" id="reportModal3" tabindex="-1" aria-labelledby="reportModalLabel3" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel3">Registrar Denuncia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="reportReason3">Motivo de la denuncia</label>
+                        <textarea class="form-control" id="reportReason3" rows="3" placeholder="Describe el motivo de tu denuncia..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
