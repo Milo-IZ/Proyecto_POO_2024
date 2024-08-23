@@ -18,6 +18,7 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 20px;
+            margin-top: 20px;
         }
     
         .card-body {
@@ -36,6 +37,13 @@
         /* Navbar con sombra */
         .navbar {
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .row-cols-auto {
+            flex: 0 0 auto;
+            width: auto;
+            padding-left: 36px;
+            padding-right: 36px;
         }
     </style>
 </head>
@@ -64,19 +72,25 @@
         </div>
     </nav>
 
-   <!-- Tarjeta de Investigación -->
-<div class="col-md-4">
-    {% for contenido in contenido %}
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title">{{ contenido.titulo }}</h5>
-            <p class="card-text">{{ contenido.descripcion }}</p>
-            <p class="card-text">{{ contenido.materia }}</p>
-            <!-- Cada botón 'Leer Más' tiene un data-target que referencia un modal único -->
-            <button class="btn btn-primary leer-mas-button" data-toggle="modal" data-target="#modal-{{ contenido.slug }}">Leer Más</button>
+<div class="container">
+    <div class="row row cols-auto">
+        {% for contenido in contenido %}
+        <div class="col">
+           
+            <div class="card mb-4">
+                <div class="card-body">
+                    <img src="{{ contenido.imagen }}" class="img-fluid">
+                    <h5 class="card-title">{{ contenido.titulo }}</h5>
+                    <p class="card-text"><strong>Materia:</strong> {{ contenido.materia }}</p>
+                    <p class="card-text"><strong>Autor:</strong> {{ contenido.autor }}</p>
+                    <p class="card-text"><strong>Año:</strong> {{ contenido.ano }}</p>
+                    <!-- Cada botón 'Leer Más' tiene un data-target que referencia un modal único -->
+                    <button class="btn btn-primary leer-mas-button" data-toggle="modal" data-target="#modal-{{ contenido.slug }}">Leer Más</button>
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
     <!-- Modal para agregar investigación -->
@@ -90,52 +104,43 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="researchTitle">Título</label>
-                        <input type="text" class="form-control" id="researchTitle" placeholder="Ingrese el título de la investigación">
+                        <input type="text" class="form-control"name="titulo" placeholder="Ingrese el título de la investigación">
                     </div>
                     <div class="form-group">
-                        <label for="researchSummary">Resumen</label>
-                        <textarea class="form-control" id="researchSummary" rows="3" placeholder="Ingrese un resumen breve"></textarea>
+                        <label for="researchSummary">Descripcion</label>
+                        <textarea class="form-control" name="descripcion" rows="3" placeholder="Ingrese una breve Descripcion"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="researchContent">Contenido</label>
-                        <textarea class="form-control" id="researchContent" rows="5" placeholder="Ingrese el contenido completo de la investigación"></textarea>
+                        <textarea class="form-control" name="contenido" rows="5" placeholder="Ingrese el contenido completo de la investigación"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="researchSubject">Materia</label>
-                        <select class="form-control" id="researchSubject">
-                            <option>Programacion 2</option>
-                            <option>Alagoritmos y Esctructura de datos</option>
-                            <option>Programacion Orientada a Objetos</option>
-                            <option>Lenguages de Programacion</option>
-                            <option>Sistemas Operativos 1</option>
-                            <option>Electronica</option>
-                            <option>Sistemas Opetativos 2</option>
-                            <option>Base de Datos 1</option>
-                            <option>Base de Datos 2</option>
-                            <option>Circuitos Electricos</option>
+                        <select class="form-control" id="researchSubject" name="materia">
+                            {% for choice in materia_choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="researchYear">Año</label>
-                        <select class="form-control" id="researchYear">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
+                        <select class="form-control" id="researchYear" name="ano">
+                            {% for choice in ano_choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="researchAuthor">Autor</label>
-                        <input type="text" class="form-control" id="researchAuthor" placeholder="Nombre del autor">
+                        <input type="text" class="form-control" name="autor" placeholder="Nombre del autor">
                     </div>
                     <div class="form-group">
                         <label for="researchImageUrl">URL de la imagen</label>
-                        <input type="url" class="form-control" id="researchImageUrl" placeholder="Ingrese la URL de la imagen">
+                        <input type="url" name="imagen" class="form-control" id="researchImageUrl" placeholder="Ingrese la URL de la imagen">
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>

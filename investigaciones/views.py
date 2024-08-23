@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
-from investigaciones.models import Contenido
+from investigaciones.models import Contenido, MATERIA_CHOICES, ANO_CHOICES
+
 
 def login(request):
     if request.method == 'GET':
@@ -33,8 +34,30 @@ def register(request):
 
 
 def foro(request):
-    contenido=Contenido.objects.all()
-    return render(request, "foro.html", {'contenido': contenido},)
+    contenido = Contenido.objects.all()
+    materia_choices = MATERIA_CHOICES
+    ano_choices = ANO_CHOICES
+
+    if request.method == 'POST':
+        titulo = request.POST['titulo']
+        descripcion = request.POST['descripcion']
+        contenido_text = request.POST['contenido']
+        autor = request.POST['autor']
+        imagen = request.POST['imagen']
+        ano = request.POST['ano']
+        materia = request.POST['materia']
+        articulo = Contenido.objects.create(titulo=titulo, descripcion=descripcion, contenido=contenido_text, autor=autor, imagen=imagen, ano=ano, materia=materia)
+        articulo.save()
+        return redirect('foro')  # redirect to the same page after submitting the form
+
+    context = {
+        'contenido': contenido,
+        'materia_choices': materia_choices,
+        'ano_choices': ano_choices
+    }
+    return render(request, "foro.html", context)
+
+    
     
 
 
