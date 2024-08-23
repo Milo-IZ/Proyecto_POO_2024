@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
+from investigaciones.models import Contenido
 
 def login(request):
     if request.method == 'GET':
@@ -32,5 +33,8 @@ def register(request):
 
 
 def foro(request):
+    contenido=Contenido.objects.all()
+    return render(request, "foro.html", {'contenido': contenido},)
     
-    return render(request, "foro.html")
+
+
