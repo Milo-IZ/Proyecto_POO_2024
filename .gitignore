@@ -1,0 +1,64 @@
+# evitar subir los archivos de la compilación
+# Archivos y directorios de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.swp
+*.swo
+*.egg-info/
+*.egg
+*.bak
+
+# Configuración del entorno
+.idea/
+.vscode/
+*.env
+*.local
+.DS_Store
+
+# Archivos de migraciones (si no quieres subirlas)
+**/migrations/
+
+# Archivos de compilación y cache
+*.log
+*.pot
+*.mo
+*.compiled
+*.cache
+
+# Archivos de configuración y de despliegue
+*.ini
+*.cfg
+*.conf
+*.lock
+docker-compose*.yml
+*.pid
+
+# Archivos de paquetes de Python
+*.whl
+*.dist-info
+
+# Ignorar archivos creados por editores
+*.iml
+*.sublime-project
+*.sublime-workspace
+*.tmproj
+*.user
+.project
+.idea/
+.vscode/
+*.sublime-settings
+*.eslintrc.js
+*.prettierrc
+
+# Archivos y directorios de la documentación
+docs/_build/
+
+# Archivos de log
+*.log
+
+# Ignorar archivos de sistemas operativos
+Thumbs.db
+ehthumbs.db
+Desktop.ini
