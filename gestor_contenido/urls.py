@@ -18,9 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from investigaciones import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('foro/', views.foro, name='foro'),
+    path('post/<int:id>/', views.post, name='post'),
+    path('form_post/', views.crear_contenido, name='form_post'),
 ]

@@ -1,232 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foro de Investigación</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Fondo con un color suave */
-        body {
-            background-color: #f7f9fc;
-        }
+{% extends "index.html" %}
+{% block content %}
     
-        /* Sombra suave para las tarjetas de investigaciones */
-        .card {
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-    
-        .card-body {
-            padding: 20px;
-        }
-    
-        .card-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    
-        .card-text {
-            margin-bottom: 10px;
-        }
-    
-        /* Navbar con sombra */
-        .navbar {
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .row-cols-auto {
-            flex: 0 0 auto;
-            width: auto;
-            padding-left: 36px;
-            padding-right: 36px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Foro de Investigación</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mis Investigaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white" href="#" data-toggle="modal" data-target="#addResearchModal">Agregar Investigación</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
 <div class="container">
-    <div class="row row cols-auto">
+    <div class="row row-cols-auto">
+
         {% for contenido in contenido %}
         <div class="col">
-           
-            <div class="card mb-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{contenido.imagen}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <img src="{{ contenido.imagen }}" class="img-fluid">
-                    <h5 class="card-title">{{ contenido.titulo }}</h5>
-                    <p class="card-text"><strong>Materia:</strong> {{ contenido.materia }}</p>
-                    <p class="card-text"><strong>Autor:</strong> {{ contenido.autor }}</p>
-                    <p class="card-text"><strong>Año:</strong> {{ contenido.ano }}</p>
-                    <!-- Cada botón 'Leer Más' tiene un data-target que referencia un modal único -->
-                    <button class="btn btn-primary leer-mas-button" data-toggle="modal" data-target="#modal-{{ contenido.slug }}">Leer Más</button>
+                  <h5 class="card-title">{{contenido.titulo}}</h5>
+                  <p class="card-text"><strong>Materia: </strong>{{contenido.materia}}</p>
+                  <p class="card-text"><strong>Año: </strong>{{contenido.ano}}</p>
+                  <a href="{% url "post" contenido.id %}" class="btn btn-primary">Leer Mas</a>
                 </div>
             </div>
         </div>
-        {% endfor %}
+            {% endfor %}
+
     </div>
 </div>
-
-    <!-- Modal para agregar investigación -->
-<div class="modal fade" id="addResearchModal" tabindex="-1" aria-labelledby="addResearchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addResearchModalLabel">Agregar Nueva Investigación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="researchTitle">Título</label>
-                        <input type="text" class="form-control"name="titulo" placeholder="Ingrese el título de la investigación">
-                    </div>
-                    <div class="form-group">
-                        <label for="researchSummary">Descripcion</label>
-                        <textarea class="form-control" name="descripcion" rows="3" placeholder="Ingrese una breve Descripcion"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="researchContent">Contenido</label>
-                        <textarea class="form-control" name="contenido" rows="5" placeholder="Ingrese el contenido completo de la investigación"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="researchSubject">Materia</label>
-                        <select class="form-control" id="researchSubject" name="materia">
-                            {% for choice in materia_choices %}
-                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="researchYear">Año</label>
-                        <select class="form-control" id="researchYear" name="ano">
-                            {% for choice in ano_choices %}
-                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="researchAuthor">Autor</label>
-                        <input type="text" class="form-control" name="autor" placeholder="Nombre del autor">
-                    </div>
-                    <div class="form-group">
-                        <label for="researchImageUrl">URL de la imagen</label>
-                        <input type="url" name="imagen" class="form-control" id="researchImageUrl" placeholder="Ingrese la URL de la imagen">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-    <!-- Modal de investigación -->
-    <div class="modal fade" id="modal-{{ investigacion.slug }}" tabindex="-1" aria-labelledby="modalLabel-{{ investigacion.slug }}" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-{{ investigacion.slug }}">{{ investigacion.titulo }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {% for investigacion in contenido %}
-                <div class="modal-body">
-                    <p>Autor: {{ investigacion.autor }}</p>
-                    <p>Materia: {{ investigacion.materia }}</p>
-                    <p>Fecha: {{ investigacion.fecha }}</p>
-                    <p>Año: {{ investigacion.ano }}</p>
-                    <img src="{{ investigacion.imagen }}" class="img-fluid" alt="Imagen de {{ investigacion.titulo }}">
-                    <p>{{ investigacion.contenido }}</p>
-                    <!-- Botones de denunciar y votar -->
-                    <div class="d-flex justify-content-between mb-4">
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#reportModal-{{ investigacion.slug }}">Denunciar</button>
-                        <button class="btn btn-success">Votar</button>
-                    </div>
-                    <!-- Sección de comentarios -->
-                    <div class="comments-section">
-                        <h5>Comentarios</h5>
-                        <div class="form-group">
-                            <textarea class="form-control" id="newComment-{{ investigacion.slug }}" rows="3" placeholder="Escribe tu comentario aquí..."></textarea>
-                        </div>
-                        <button class="btn btn-primary">Enviar</button>
-                    </div>
-                    {%endfor%}
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-<!-- Modal para registrar denuncia -->
-<div class="modal fade" id="reportModal1" tabindex="-1" aria-labelledby="reportModalLabel1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reportModalLabel1">Registrar Denuncia</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="reportReason1">Motivo de la denuncia</label>
-                        <textarea class="form-control" id="reportReason1" rows="3" placeholder="Describe el motivo de tu denuncia..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // JavaScript code here
-    const leerMasButtons = document.querySelectorAll('.leer-mas-button');
-  
-    leerMasButtons.forEach((button) => {
-      button.addEventListener('click', (event) => {
-        const modalId = event.target.getAttribute('data-target');
-        const modal = document.querySelector(modalId);
-        $(modal).modal('show');
-      });
-    });
-  </script>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

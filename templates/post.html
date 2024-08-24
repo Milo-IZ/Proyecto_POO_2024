@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container">
+    
+    <h5>{{contenido.titulo}}</h5>
+    <img src="{{contenido.imagen}}" class="img-fluid">
+    <h5><strong>Materia: </strong>{{contenido.materia}}</h5>
+    <p><strong>Año: </strong>{{contenido.ano}}</p>
+    <p><strong>Fecha de Publicación: </strong>{{contenido.fecha}}</p>
+    <p>{{contenido.contenido}}</p>
+    <br></br>
+
+    <!--Seccion de comentarios-->
+
+
+       
+        <form method="POST">
+            {% csrf_token %} 
+            <div class="form-group" style="max-width: 400px; padding: 10px; border-radius: 5px; background-color: #f9f9f9;">
+                <h5>Comentarios</h5>
+                <label for="comentario" placeholder="Deja tu comentario"></label>
+                <textarea class="form-control" id="comentario" name="comentario" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar</button>
+        </form>
+        <br></br>
+        <a type="button"class="btn btn-danger"style="margin-button=100px">Denunciar</a>
+        
+    
+                    
+</div>
+
+{% endblock%}

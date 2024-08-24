@@ -1,7 +1,5 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 MATERIA_CHOICES = [
@@ -35,3 +33,21 @@ class Contenido(models.Model):
 
     def __str__(self):
         return self.titulo
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'Comment by {self.user.username}'
+    
+class Denuncia(models.Model):
+    DENUNCIA_CHOICES = [("Contenido Inapropiado", "CONTENIDO INAPROPIADO"), ("Contenido Falso", "CONTENIDO FALSO"), ("Contenido Incompleto", "CONTENIDO INCOMPLETO"),("plagio", "PLAGIO"), ("Otro", "OTRO")]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    motivo= models.TextField(max_length=30, choices=DENUNCIA_CHOICES)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'Denuncia by {self.user.username} Motivo: {self.motivo}'

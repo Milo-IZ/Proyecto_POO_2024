@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from investigaciones.models import Contenido, MATERIA_CHOICES, ANO_CHOICES
+from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm
 
 
 def login(request):
@@ -35,29 +36,51 @@ def register(request):
 
 def foro(request):
     contenido = Contenido.objects.all()
-    materia_choices = MATERIA_CHOICES
-    ano_choices = ANO_CHOICES
+    # materia_choices = MATERIA_CHOICES
+    # ano_choices = ANO_CHOICES
 
+    # if request.method == 'POST':
+    #     titulo = request.POST['titulo']
+    #     descripcion = request.POST['descripcion']
+    #     contenido_text = request.POST['contenido']
+    #     autor = request.POST['autor']
+    #     imagen = request.POST['imagen']
+    #     ano = request.POST['ano']
+    #     materia = request.POST['materia']
+    #     articulo = Contenido.objects.create(titulo=titulo, descripcion=descripcion, contenido=contenido_text, autor=autor, imagen=imagen, ano=ano, materia=materia)
+    #     articulo.save()
+    #     return redirect('foro')  # redirect to the same page after submitting the form
+
+    # context = {
+    #     'contenido': contenido,
+    #     'materia_choices': materia_choices,
+    #     'ano_choices': ano_choices
+    # }
+    return render(request, "foro.html", {'contenido': contenido})
+
+    
+# creando la funcion del boton leer mas de la card en el foro este redirige a la pagina post.html
+def post(request, id):
+    contenido = Contenido.objects.get(id=id)
+    return render(request, "post.html", {'contenido': contenido})
+
+
+def crear_contenido(request):
     if request.method == 'POST':
-        titulo = request.POST['titulo']
-        descripcion = request.POST['descripcion']
-        contenido_text = request.POST['contenido']
-        autor = request.POST['autor']
-        imagen = request.POST['imagen']
-        ano = request.POST['ano']
-        materia = request.POST['materia']
-        articulo = Contenido.objects.create(titulo=titulo, descripcion=descripcion, contenido=contenido_text, autor=autor, imagen=imagen, ano=ano, materia=materia)
-        articulo.save()
-        return redirect('foro')  # redirect to the same page after submitting the form
+        form = ContenidoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('foro')
+    else:
+        form = ContenidoForm()
+    return render(request, 'form.html', {'form': form})
 
-    context = {
-        'contenido': contenido,
-        'materia_choices': materia_choices,
-        'ano_choices': ano_choices
-    }
-    return render(request, "foro.html", context)
-
-    
-    
-
-
+def denunciar(request):
+    if request.method == 'POST':
+        form = DenunciaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('foro')
+    else:
+        form = DenunciaForm()
+    return render(request, 'denunciar.html', {'form': form})
