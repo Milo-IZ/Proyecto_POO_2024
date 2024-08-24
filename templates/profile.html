@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Fondo con un color suave */
+        body {
+            background-color: #f7f9fc;
+        }
+
+        /* Sombra suave para la tarjeta de perfil */
+        .profile-card {
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .profile-card h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .profile-card p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* Botón de cerrar sesión */
+        .btn-logout {
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="profile-card text-center">
+                    <h2>Perfil de Usuario</h2>
+                    <p>Nombre de Usuario: {{ username }}</p>
+                    <a href="{% url 'foro' %}" class="btn btn-primary">Ir al Foro</a>
+                    <a href="{% url 'logout' %}" class="btn btn-logout">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

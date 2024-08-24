@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
 from investigaciones.models import Contenido, MATERIA_CHOICES, ANO_CHOICES
 from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm
+from django.contrib  import messages
 
 
 def login(request):
@@ -84,3 +85,11 @@ def denunciar(request):
     else:
         form = DenunciaForm()
     return render(request, 'denunciar.html', {'form': form})
+
+def profile(request):
+    return render(request, 'profile.html', {'username': request.user.username})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Has cerrado sesión correctamente.')
+    return redirect('login')  # Redirigir a la página de inicio de sesión después de cerrar sesión

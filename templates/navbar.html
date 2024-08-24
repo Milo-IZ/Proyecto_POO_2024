@@ -9,7 +9,7 @@
                 <a class="nav-link" href="{% url "foro" %}">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Perfil</a>
+                <a href="{% url 'profile' %}" class="nav-link">Perfil</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link  text-black" href="{%url "form_post" %}" data-toggle="modal" data-target="#addResearchModal">Agregar Investigación</a>
