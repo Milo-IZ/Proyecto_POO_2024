@@ -51,7 +51,7 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label>Ingresa tu nombre de Usuario</label>
-                                <input name="username"class="form-control"  placeholder="Ingrese su Usuario">
+                                <input name="username" class="form-control" placeholder="Ingrese su Usuario">
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña</label>
@@ -67,13 +67,14 @@
                                     <strong>¡Error!</strong> {{ error }}
                                 </div>
                             {% endif %}
-                            {%if valor %}
+                            {% if valor %}
                                 <div class="alert alert-success" role="alert">
-                                    <strong>Felicidades</strong>{{ valor }}
+                                    <strong>Felicidades</strong> {{ valor }}
+                                </div>
                             {% endif %}
                         </form>
                         <p class="text-center mt-3">
-                            <a href="#">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+                            <a href="{% url 'login' %}">¿Ya tienes una cuenta? Inicia sesión aquí</a>
                         </p>
                     </div>
                 </div>
