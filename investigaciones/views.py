@@ -12,7 +12,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from investigaciones.models import Voto
-
+from django.contrib.auth import logout
+from django.contrib import messages
 
 
 

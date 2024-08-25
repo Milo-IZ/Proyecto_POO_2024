@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from investigaciones import views
-
+from django.contrib.auth.views import LogoutView
+from investigaciones.views import logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,7 @@ urlpatterns = [
     path('post/<int:id>/', views.post, name='post'),
     path('form_post/', views.crear_contenido, name='form_post'),
     path('denuncia/', views.denunciar, name='denuncia'),
-    path('voto/', views.voto, name='voto'),  # Add this line
+    path('voto/', views.voto, name='voto'), 
+    path('profile/', views.profile, name='profile'),
+    path('logout/', logout_view, name='logout'),
 ]
