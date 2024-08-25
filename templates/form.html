@@ -1,18 +1,80 @@
-{% extends "index.html" %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Investigación</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <style>
+        /* Estilo para asegurar que las etiquetas y campos estén alineados correctamente */
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-{% block content %}
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="container">
-        {% for field in form %} 
-        {{field.label_tag}} 
-        {{field}}
-        {% endfor %}
-    <div>
-        <br></br>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-        </div>
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .cke {
+            margin-top: 10px; /* Ajuste para dar espacio entre la etiqueta y el editor */
+        }
+
+        /* Evitar que el CKEditor sobresalga de su contenedor */
+        .form-control {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Asegurar que el contenedor del CKEditor no cause problemas de alineación */
+        .ck-editor__editable_inline {
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    {% include "navbar.html" %}
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Incluir archivos de medios (CSS/JS) necesarios para CKEditor -->
+            {{ form.media }}
+
+            {% for field in form %}
+                <div class="form-group">
+                    <!-- Etiqueta del campo -->
+                    {{ field.label_tag }}
+                    
+                    <!-- Campo del formulario -->
+                    {{ field }}
+                    
+                    <!-- Mostrar errores asociados con el campo -->
+                    {% if field.errors %}
+                        <div class="alert alert-danger">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <br>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
     </div>
-</form>
 
-{%endblock%}
+    <!-- Scripts de Bootstrap y jQuery -->
+    <script src="{% static 'js/bootstrap.js'%}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+    <!-- Bloque para scripts adicionales -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

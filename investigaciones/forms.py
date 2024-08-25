@@ -18,15 +18,22 @@ class ContenidoForm(forms.ModelForm):
             'ano': forms.Select(attrs={'class': 'form-control'}),
             'materia': forms.Select(attrs={'class': 'form-control'}),
         }
-        
-class CommentForm(ModelForm):
+
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,  # Ajusta la altura del textarea
+                'cols': 40, # Ajusta el ancho del textarea
+            }),
         }
-        
+        labels = {
+            'content': 'Comentario',
+        }
+
 class DenunciaForm(ModelForm):
     class Meta:
         model = Denuncia

@@ -14,7 +14,8 @@ from django.contrib import messages
 from investigaciones.models import Contenido,Voto
 from django.contrib.auth import logout
 from django.contrib import messages
-
+from .models import Comment
+from django.shortcuts import get_object_or_404
 
 
 
@@ -77,12 +78,31 @@ def denunciar(request):
         form = DenunciaForm()
         return render(request, 'modal_denuncia.html', {'form': form})
     
-    
 def post(request, id):
-    contenido = Contenido.objects.get(id=id)
+    contenido = get_object_or_404(Contenido, id=id)
+    comments = Comment.objects.filter(contenido=contenido)
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if 'comment' in request.POST and comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.contenido = contenido
+            new_comment.user = request.user
+            new_comment.save()
+            return redirect('post', id=contenido.id)  # Redirigir para evitar reenvío del formulario
+    else:
+        comment_form = CommentForm()
+
     denuncia_form = DenunciaForm(initial={'user': request.user})
-    voto_form = VotoForm(initial={'user': request.user})  # Add this line
-    return render(request, "post.html", {'contenido': contenido, 'denuncia_form': denuncia_form, 'voto_form': voto_form})  # Add voto_form to the template context
+    voto_form = VotoForm(initial={'user': request.user})
+
+    return render(request, "post.html", {
+        'contenido': contenido,
+        'comments': comments,
+        'comment_form': comment_form,
+        'denuncia_form': denuncia_form,
+        'voto_form': voto_form
+    })
 
 def profile(request):
     return render(request, 'profile.html', {'username': request.user.username})
