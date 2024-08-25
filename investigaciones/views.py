@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
-from investigaciones.models import Contenido, Comment
+from investigaciones.models import Contenido, MATERIA_CHOICES, ANO_CHOICES
+from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm
+from django.contrib  import messages
+from django.contrib.auth.decorators import login_required
+from investigaciones.models import Contenido
 from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm, VotoForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from investigaciones.models import Voto
 
 
 
@@ -73,46 +77,38 @@ def denunciar(request):
         return render(request, 'modal_denuncia.html', {'form': form})
     
     
-
-
 def post(request, id):
     contenido = Contenido.objects.get(id=id)
     denuncia_form = DenunciaForm(initial={'user': request.user})
-    voto_form = VotoForm(initial={'user': request.user})  
-    comment_form = CommentForm()  # Add this line
-    comments = Comment.objects.filter(contenido=contenido)  # Add this line
+    voto_form = VotoForm(initial={'user': request.user})  # Add this line
+    return render(request, "post.html", {'contenido': contenido, 'denuncia_form': denuncia_form, 'voto_form': voto_form})  # Add voto_form to the template context
 
-    if request.method == 'POST' and 'comment' in request.POST:  # Add this condition
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.user = request.user
-            comment.contenido = contenido
-            comment.save()
-            return redirect('post', id=id)
+def profile(request):
+    return render(request, 'profile.html', {'username': request.user.username})
 
-    return render(request, "post.html", {
-        'contenido': contenido, 
-        'denuncia_form': denuncia_form, 
-        'voto_form': voto_form,
-        'comment_form': comment_form,  # Add this line
-        'comments': comments  # Add this line
-    })
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Has cerrado sesión correctamente.')
+    return redirect('login')  # Redirigir a la página de inicio de sesión después de cerrar sesión
 
 @login_required
-def voto(request, contenido_id):
-    contenido = Contenido.objects.get(id=contenido_id)
+def mis_investigaciones(request):
+    user = request.user
+    investigaciones = Contenido.objects.filter(autor=user.username)  # Asumiendo que el campo 'autor' almacena el nombre de usuario
+    return render(request, 'mis_investigaciones.html', {'investigaciones': investigaciones})
+
+@login_required
+def voto(request):
     if request.method == 'POST':
         form = VotoForm(request.POST)
         if form.is_valid():
             voto = form.save(commit=False)
             voto.user = request.user
-            voto.contenido = contenido
+            contenido_id = request.POST.get('contenido_id')
+            voto.contenido = Contenido.objects.get(id=contenido_id)
             voto.save()
             messages.success(request, 'Voto creado con éxito')
             return redirect('post', contenido_id)  # Change the redirect URL
     else:
         form = VotoForm()
-    return render(request, 'post.html', {'form': form, 'contenido': contenido})  # Change the template name
-
-
+    return render(request, 'post.html', {'form': form})
