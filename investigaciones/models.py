@@ -5,17 +5,19 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 MATERIA_CHOICES = [
-    ("Programacion 2", "PROGRAMACION 2"),
-    ("Algoritmos y estructura de Datos", "ALGORITMOS Y ESTRUCTURA DE DATOS"),
-    ("Base de Datos 1", "BASE DE DATOS 1"),
-    ("Base de Datos 2", "BASE DE DATOS 2"),
-    ("Programacion Orientada a Objetos", "PROGRAMACION ORIENTADA A OBJETOS"),
-    ("Sistemas Operativos 1", "SISTEMAS OPERATIVOS 1"),
-    ("Sistemas Operativos 2", "SISTEMAS OPERATIVOS 2"),
-    ("Lenjuajes de Programacion", "LENGUAJES DE PROGRAMACION"),
-    ("Electronica", "ELECTRONICA"),
-    ("Circuitos Electricos", "CIRCUITOS ELECTRICOS"),
+    ("IS210", "IS-210"), ("MM110", "MM-110"), ("MM111", "MM-111"),
+    ("IS310", "IS-310"), ("IS410", "IS-410"), ("IS411", "IS-411"), 
+    ("IS412", "IS-412"), ("IS501", "IS-501"), ("IS510", "IS-510"), 
+    ("IS511", "IS-511"), ("IS512", "IS-512"), ("IS513", "IS-513"), 
+    ("IS601", "IS-601"), ("IS602", "IS-602"), ("IS603", "IS-603"),
+    ("IS611", "IS-611"), ("IS701", "IS-701"), ("IS702", "IS-702"),
+    ("IS711", "IS-711"), ("IS721", "IS-721"),("IS802", "IS-802"),
+    ("IS811", "IS-811"), ("IS820", "IS-820"), ("IS902", "IS-902"),
+    ("IS903", "IS-903"), ("IS904", "IS-904"), ("IS905", "IS-905"),
+    ("IS906", "IS-906"), ("IS910", "IS-910"), ("IS911", "IS-911"),
+    ("IS912", "IS-912"), ("IS913", "IS-913"), ("IS914", "IS-914"),
 ]
+
 # años iren de 1 a 5
 ANO_CHOICES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5")]
 
