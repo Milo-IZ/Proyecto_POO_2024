@@ -1,14 +1,14 @@
 {% extends "index.html" %}
+
 {% block content %}
 <div class="container">
-    
-    <h5>{{contenido.titulo}}</h5>
-    <img src="{{contenido.imagen}}" class="img-fluid">
-    <h5><strong>Materia: </strong>{{contenido.materia}}</h5>
-    <p><strong>Año: </strong>{{contenido.ano}}</p>
-    <p><strong>Fecha de Publicación: </strong>{{contenido.fecha}}</p>
-    <p>{{contenido.contenido}}</p>
-    <br></br>
+    <h5>{{ contenido.titulo }}</h5>
+    <img src="{{ contenido.imagen }}" class="img-fluid">
+    <h5><strong>Materia: </strong>{{ contenido.materia }}</h5>
+    <p><strong>Año: </strong>{{ contenido.ano }}</p>
+    <p><strong>Fecha de Publicación: </strong>{{ contenido.fecha }}</p>
+    <p>{{ contenido.contenido|safe }}</p>
+    <br>
 
     <!-- Sección de comentarios -->
     <form method="POST">
@@ -17,21 +17,20 @@
         <button type="submit" name="comment" class="btn btn-primary">Enviar</button>
     </form>
     
-<!-- Display comments -->
-<h5>Comentarios</h5>
-<ul>
-    {% for comment in comments %}
-        <li>
-            <div class="comment">
-                <strong>{{ comment.user.username }}</strong> {{ comment.content }}
-                <small>{{ comment.created_at }}</small>
-            </div>
-        </li>
-    {% empty %}
-        <li>No hay comentarios</li>
-    {% endfor %}
-</ul>
-
+    <!-- Mostrar comentarios -->
+    <h5>Comentarios</h5>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <div class="comment">
+                    <strong>{{ comment.user.username }}</strong> {{ comment.content }}
+                    <small>{{ comment.created_at }}</small>
+                </div>
+            </li>
+        {% empty %}
+            <li>No hay comentarios</li>
+        {% endfor %}
+    </ul>
 
     <!-- Botones de Denunciar y Votar -->
     <div style="margin-top: 20px; margin-bottom: 50px;">
@@ -40,43 +39,44 @@
     </div>
 
     <!-- Modal Denuncia -->
-<div class="modal fade" id="modal_denuncia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Denunciar Contenido</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="modal_denuncia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Denunciar Contenido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'denuncia' %}">
+                        {% csrf_token %}
+                        {{ denuncia_form.as_p }}
+                        <input type="hidden" name="contenido_id" value="{{ contenido.id }}">  
+                        <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <form method="POST" action="{% url 'denuncia' %}">
-            {% csrf_token %}
-            {{ denuncia_form.as_p }}
-            <input type="hidden" name="contenido_id" value="{{ contenido.id }}">  
-            <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <div class="modal fade" id="modal_votar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Votar Contenido</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal Votar -->
+    <div class="modal fade" id="modal_votar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Votar Contenido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'voto' %}">
+                        {% csrf_token %}
+                        {{ voto_form.as_p }}
+                        <input type="hidden" name="contenido_id" value="{{ contenido.id }}">  
+                        <button type="submit" class="btn btn-success">Votar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <form method="POST" action="{% url 'voto' %}">
-                {% csrf_token %}
-                {{ voto_form.as_p }}
-                <input type="hidden" name="contenido_id" value="{{ contenido.id }}">  
-                <button type="submit" class="btn btn-success">Votar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </form>
-        </div>
-      </div>
     </div>
-  </div>
-  {%endblock%}
+{% endblock %}
