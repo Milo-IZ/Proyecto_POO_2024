@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 # Create your models here.
 MATERIA_CHOICES = [
@@ -35,6 +37,7 @@ class Contenido(models.Model):
         return self.titulo
 
 class Comment(models.Model):
+    #el usuario debe ser auto asignado me diante el login
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -45,9 +48,19 @@ class Comment(models.Model):
 class Denuncia(models.Model):
     DENUNCIA_CHOICES = [("Contenido Inapropiado", "CONTENIDO INAPROPIADO"), ("Contenido Falso", "CONTENIDO FALSO"), ("Contenido Incompleto", "CONTENIDO INCOMPLETO"),("plagio", "PLAGIO"), ("Otro", "OTRO")]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    motivo= models.TextField(max_length=30, choices=DENUNCIA_CHOICES)
+    motivo = models.CharField(max_length=30, choices=DENUNCIA_CHOICES)  # Changed to CharField
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f'Denuncia by {self.user.username} Motivo: {self.motivo}'
+    
+    
+class Voto(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contenido = models.ForeignKey(Contenido, on_delete=models.CASCADE)
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])  # Add a rating field
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'Voto by {self.user.username} on {self.contenido.titulo}'

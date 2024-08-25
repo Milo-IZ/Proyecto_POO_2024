@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from.models import Contenido, Comment,Denuncia
+from.models import Contenido, Comment,Denuncia, Voto
 
 class ContenidoForm(ModelForm):
     class Meta:
@@ -30,6 +30,14 @@ class DenunciaForm(ModelForm):
         fields = ['motivo', 'content']
         widgets = {
             'motivo': forms.Select(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'content': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+class VotoForm(ModelForm):
+    class Meta:
+        model = Voto
+        fields = ('rating',)
+        widgets = {
+            'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
+            
         }
         

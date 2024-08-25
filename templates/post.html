@@ -23,58 +23,48 @@
     
     <!-- Botones de Denunciar y Votar -->
     <div style="margin-top: 20px; margin-bottom: 50px;">
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#denunciarModal">Denunciar</button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#votarModal">Votar</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_denuncia">Denunciar</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_votar">Votar</button>
     </div>
 
-    <!-- Modales -->
-    <!-- Modal Denunciar -->
-    <div class="modal fade" id="denunciarModal" tabindex="-1" aria-labelledby="denunciarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="denunciarModalLabel">Denunciar Publicación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% for field in form %}
-                        <div class="mb-3">
-                            {{ field.label_tag }}
-                            {{ field }}
-                        </div>
-                        {% endfor %}
-                        <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+    <!-- Modal Denuncia -->
+<div class="modal fade" id="modal_denuncia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Denunciar Contenido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-    </div>
-    
-
-    <!-- Modal Votar -->
-    <div class="modal fade" id="votarModal" tabindex="-1" role="dialog" aria-labelledby="votarModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="votarModalLabel">Votar Publicación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Aquí irá el contenido del formulario para votar -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success">Enviar Voto</button>
-                </div>
-            </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'denuncia' %}">
+            {% csrf_token %}
+            {{ denuncia_form.as_p }}
+            <input type="hidden" name="contenido_id" value="{{ contenido.id }}">  
+            <button type="submit" class="btn btn-danger">Enviar Denuncia</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </form>
         </div>
+      </div>
     </div>
-    
-</div>
+  </div>
 
-{% endblock %}
+  <div class="modal fade" id="modal_votar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Votar Contenido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{% url 'voto' %}">
+                {% csrf_token %}
+                {{ voto_form.as_p }}
+                <input type="hidden" name="contenido_id" value="{{ contenido.id }}">  
+                <button type="submit" class="btn btn-success">Votar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endblock%}

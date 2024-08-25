@@ -16,7 +16,6 @@ __pycache__/
 *.env
 *.local
 .DS_Store
-venv/
 
 # Archivos de migraciones (si no quieres subirlas)
 **/migrations/

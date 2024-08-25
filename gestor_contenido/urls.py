@@ -26,6 +26,6 @@ urlpatterns = [
     path('foro/', views.foro, name='foro'),
     path('post/<int:id>/', views.post, name='post'),
     path('form_post/', views.crear_contenido, name='form_post'),
-    path('profile/', views.profile, name='profile'),
-    path('logout/', views.logout_view, name ='logout')
+    path('denuncia/', views.denunciar, name='denuncia'),
+    path('voto/', views.voto, name='voto'),  # Add this line
 ]
