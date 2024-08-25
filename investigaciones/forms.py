@@ -12,7 +12,7 @@ class ContenidoForm(forms.ModelForm):
         fields = ['titulo', 'descripcion', 'contenido', 'autor', 'imagen', 'ano', 'materia']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),  # Usa Textarea aquí
+            'descripcion': forms.Textarea(attrs={'class': 'form-control descripcion-textarea'}),
             'autor': forms.TextInput(attrs={'class': 'form-control'}),
             'imagen': forms.TextInput(attrs={'class': 'form-control'}),
             'ano': forms.Select(attrs={'class': 'form-control'}),
