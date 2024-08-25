@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 MATERIA_CHOICES = [
@@ -21,7 +22,7 @@ ANO_CHOICES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5")]
 class Contenido(models.Model):
     titulo = models.CharField(max_length=100)
     descripcion = models.TextField(max_length=300)
-    contenido = models.TextField()
+    contenido = RichTextField()
     fecha = models.DateTimeField(auto_now_add=True)
     autor = models.CharField(max_length=100)
     imagen = models.URLField()

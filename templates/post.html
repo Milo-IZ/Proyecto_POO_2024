@@ -2,12 +2,17 @@
 {% block content %}
 <div class="container">
     
-    <h5>{{contenido.titulo}}</h5>
-    <img src="{{contenido.imagen}}" class="img-fluid">
-    <h5><strong>Materia: </strong>{{contenido.materia}}</h5>
-    <p><strong>Año: </strong>{{contenido.ano}}</p>
-    <p><strong>Fecha de Publicación: </strong>{{contenido.fecha}}</p>
-    <p>{{contenido.contenido}}</p>
+    <h5>{{ contenido.titulo }}</h5>
+    <img src="{{ contenido.imagen }}" class="img-fluid">
+    <h5><strong>Materia: </strong>{{ contenido.materia }}</h5>
+    <p><strong>Año: </strong>{{ contenido.ano }}</p>
+    <p><strong>Fecha de Publicación: </strong>{{ contenido.fecha }}</p>
+    
+    <!-- Renderiza el contenido de manera segura -->
+    <div>
+        {{ contenido.contenido|safe }}
+    </div>
+    
     <br></br>
 
     <!-- Sección de comentarios -->
@@ -78,3 +83,4 @@
 </div>
 
 {% endblock %}
+

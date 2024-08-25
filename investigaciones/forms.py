@@ -1,15 +1,17 @@
 from django.forms import ModelForm
 from django import forms
 from.models import Contenido, Comment,Denuncia
+from ckeditor.widgets import CKEditorWidget
 
-class ContenidoForm(ModelForm):
+class ContenidoForm(forms.ModelForm):
+    contenido = forms.CharField(widget=CKEditorWidget(config_name='default'))  # Configura el CKEditorWidget
+
     class Meta:
         model = Contenido
         fields = ['titulo', 'descripcion', 'contenido', 'autor', 'imagen', 'ano', 'materia']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
-            'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
-            'contenido': forms.Textarea(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),  # Usa Textarea aquí
             'autor': forms.TextInput(attrs={'class': 'form-control'}),
             'imagen': forms.TextInput(attrs={'class': 'form-control'}),
             'ano': forms.Select(attrs={'class': 'form-control'}),

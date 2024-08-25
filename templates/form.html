@@ -1,20 +1,81 @@
 {% extends "index.html" %}
+{% load static %}
 
 {% block content %}
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="container">
-    
-    {% for field in form %} 
-    {{field.label_tag}} 
-    {{field}}
-    {% endfor %}
+        <div class="form-group">
+            {{ form.titulo.label_tag }}
+            {{ form.titulo }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.descripcion.label_tag }}
+            {{ form.descripcion }}
+        </div>
+
+        <div class="form-group">
+            {{ form.contenido.label_tag }}
+            <div id="ck-editor-container">
+                {{ form.contenido }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form.autor.label_tag }}
+            {{ form.autor }}
+        </div>
+
+        <div class="form-group">
+            {{ form.imagen.label_tag }}
+            {{ form.imagen }}
+        </div>
+
+        <div class="form-group">
+            {{ form.ano.label_tag }}
+            {{ form.ano }}
+        </div>
+
+        <div class="form-group">
+            {{ form.materia.label_tag }}
+            {{ form.materia }}
+        </div>
+
         <div>
-        <br>
-        </br>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+            <br></br>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </div>
     </div>
 </form>
 
-{%endblock%}
+<!-- Estilos embebidos -->
+<style>
+    .form-group {
+        margin-bottom: 20px; /* Espacio entre los campos */
+    }
+
+    .ck-editor__editable_inline {
+        margin-top: 10px; /* Margen superior para separar CKEditor del campo anterior */
+    }
+
+    #ck-editor-container {
+        margin-top: 10px; /* Añade margen superior específico para el contenedor CKEditor */
+    }
+
+    .form-group textarea[name="descripcion"] {
+        height: 80px; /* Ajusta la altura del campo descripcion */
+        resize: vertical; /* Permite ajustar el tamaño verticalmente si es necesario */
+    }
+</style>
+
+<!-- Inicializa CKEditor -->
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        CKEDITOR.replace('id_contenido');  <!-- Asegúrate de usar el ID correcto del campo -->
+    });
+</script>
+
+{% endblock %}
+
