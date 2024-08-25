@@ -63,3 +63,6 @@ docs/_build/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+#Sqlite3 
+db.sqlite3
