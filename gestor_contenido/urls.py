@@ -31,5 +31,6 @@ urlpatterns = [
     path('form_post/', views.crear_contenido, name='form_post'),
     path('profile/', views.profile, name='profile'),
     path('logout/', views.logout_view, name ='logout'),
+    path('mis_investigaciones/', views.mis_investigaciones, name='mis_investigaciones'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

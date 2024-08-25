@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from investigaciones.models import Contenido, MATERIA_CHOICES, ANO_CHOICES
 from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm
 from django.contrib  import messages
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
@@ -93,3 +94,9 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Has cerrado sesión correctamente.')
     return redirect('login')  # Redirigir a la página de inicio de sesión después de cerrar sesión
+
+@login_required
+def mis_investigaciones(request):
+    user = request.user
+    investigaciones = Contenido.objects.filter(autor=user.username)  # Asumiendo que el campo 'autor' almacena el nombre de usuario
+    return render(request, 'mis_investigaciones.html', {'investigaciones': investigaciones})
