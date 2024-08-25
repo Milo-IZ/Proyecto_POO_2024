@@ -13,14 +13,26 @@
     <!-- Sección de comentarios -->
     <form method="POST">
         {% csrf_token %}
-        <div class="form-group" style="max-width: 400px; padding: 10px; border-radius: 5px; background-color: #f9f9f9;">
-            <h5>Comentarios</h5>
-            <label for="comentario" placeholder="Deja tu comentario"></label>
-            <textarea class="form-control" id="comentario" name="comentario" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar</button>
+        {{ comment_form.as_p }}
+        <button type="submit" name="comment" class="btn btn-primary">Enviar</button>
     </form>
     
+<!-- Display comments -->
+<h5>Comentarios</h5>
+<ul>
+    {% for comment in comments %}
+        <li>
+            <div class="comment">
+                <strong>{{ comment.user.username }}</strong> {{ comment.content }}
+                <small>{{ comment.created_at }}</small>
+            </div>
+        </li>
+    {% empty %}
+        <li>No hay comentarios</li>
+    {% endfor %}
+</ul>
+
+
     <!-- Botones de Denunciar y Votar -->
     <div style="margin-top: 20px; margin-bottom: 50px;">
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_denuncia">Denunciar</button>

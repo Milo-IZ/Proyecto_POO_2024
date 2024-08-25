@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
-from investigaciones.models import Contenido
+from investigaciones.models import Contenido, Comment
 from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm, VotoForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from investigaciones.models import Voto
+from django.shortcuts import redirect, render
+
 
 
 
@@ -72,24 +73,46 @@ def denunciar(request):
         return render(request, 'modal_denuncia.html', {'form': form})
     
     
+
+
 def post(request, id):
     contenido = Contenido.objects.get(id=id)
     denuncia_form = DenunciaForm(initial={'user': request.user})
-    voto_form = VotoForm(initial={'user': request.user})  # Add this line
-    return render(request, "post.html", {'contenido': contenido, 'denuncia_form': denuncia_form, 'voto_form': voto_form})  # Add voto_form to the template context
+    voto_form = VotoForm(initial={'user': request.user})  
+    comment_form = CommentForm()  # Add this line
+    comments = Comment.objects.filter(contenido=contenido)  # Add this line
+
+    if request.method == 'POST' and 'comment' in request.POST:  # Add this condition
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.contenido = contenido
+            comment.save()
+            return redirect('post', id=id)
+
+    return render(request, "post.html", {
+        'contenido': contenido, 
+        'denuncia_form': denuncia_form, 
+        'voto_form': voto_form,
+        'comment_form': comment_form,  # Add this line
+        'comments': comments  # Add this line
+    })
 
 @login_required
-def voto(request):
+def voto(request, contenido_id):
+    contenido = Contenido.objects.get(id=contenido_id)
     if request.method == 'POST':
         form = VotoForm(request.POST)
         if form.is_valid():
             voto = form.save(commit=False)
             voto.user = request.user
-            contenido_id = request.POST.get('contenido_id')
-            voto.contenido = Contenido.objects.get(id=contenido_id)
+            voto.contenido = contenido
             voto.save()
             messages.success(request, 'Voto creado con éxito')
             return redirect('post', contenido_id)  # Change the redirect URL
     else:
         form = VotoForm()
-    return render(request, 'post.html', {'form': form})
+    return render(request, 'post.html', {'form': form, 'contenido': contenido})  # Change the template name
+
+

@@ -37,8 +37,8 @@ class Contenido(models.Model):
         return self.titulo
 
 class Comment(models.Model):
-    #el usuario debe ser auto asignado me diante el login
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contenido = models.ForeignKey(Contenido, on_delete=models.CASCADE)  # Add this line
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     

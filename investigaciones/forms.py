@@ -21,7 +21,10 @@ class CommentForm(ModelForm):
         model = Comment
         fields = ['content']
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Escribe un comentario...'}),
+        }
+        labels = {
+            'content': 'Comentario',
         }
         
 class DenunciaForm(ModelForm):
