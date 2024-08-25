@@ -11,7 +11,7 @@ from investigaciones.forms import ContenidoForm, DenunciaForm, CommentForm, Voto
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from investigaciones.models import Voto
+from investigaciones.models import Contenido,Voto
 from django.contrib.auth import logout
 from django.contrib import messages
 
@@ -92,11 +92,6 @@ def logout_view(request):
     messages.success(request, 'Has cerrado sesión correctamente.')
     return redirect('login')  # Redirigir a la página de inicio de sesión después de cerrar sesión
 
-@login_required
-def mis_investigaciones(request):
-    user = request.user
-    investigaciones = Contenido.objects.filter(autor=user.username)  # Asumiendo que el campo 'autor' almacena el nombre de usuario
-    return render(request, 'mis_investigaciones.html', {'investigaciones': investigaciones})
 
 @login_required
 def voto(request):
@@ -113,3 +108,9 @@ def voto(request):
     else:
         form = VotoForm()
     return render(request, 'post.html', {'form': form})
+
+@login_required
+def mis_investigaciones(request):
+    user = request.user
+    investigaciones = Contenido.objects.filter(autor=user.username)  # Asumiendo que el campo 'autor' almacena el nombre de usuario
+    return render(request, 'mis_investigaciones.html', {'investigaciones': investigaciones})

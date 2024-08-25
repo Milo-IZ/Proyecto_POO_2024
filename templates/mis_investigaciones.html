@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container">
+    <h2>Mis Investigaciones</h2>
+    <div class="row row-cols-auto">
+        {% for contenido in investigaciones %}
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="{{contenido.imagen}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{contenido.titulo}}</h5>
+                  <p class="card-text"><strong>Materia: </strong>{{contenido.materia}}</p>
+                  <p class="card-text"><strong>Año: </strong>{{contenido.ano}}</p>
+                  <a href="{% url "post" contenido.id %}" class="btn btn-primary">Leer Más</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -19,6 +19,7 @@ from django.urls import path
 from investigaciones import views
 from django.contrib.auth.views import LogoutView
 from investigaciones.views import logout_view
+from investigaciones.views import mis_investigaciones
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +32,5 @@ urlpatterns = [
     path('voto/', views.voto, name='voto'), 
     path('profile/', views.profile, name='profile'),
     path('logout/', logout_view, name='logout'),
+    path('mis-investigaciones/', mis_investigaciones, name='mis_investigaciones'),
 ]
